@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Android Testing Intro</string>
+    <string name="test_intro_main_button">Authorize</string>
+    <string name="test_intro_login_name_hint">Login</string>
+    <string name="test_intro_login_password_hint">Password</string>
+    <string name="test_intro_login_button">Log in</string>
 </resources>
