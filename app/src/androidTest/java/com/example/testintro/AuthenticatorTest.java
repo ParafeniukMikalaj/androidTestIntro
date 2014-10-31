@@ -3,12 +3,14 @@ package com.example.testintro;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
@@ -18,16 +20,16 @@ public class AuthenticatorTest {
     public void testValidCredentials() {
         Credentials credentials = new Credentials(Stub.NAME, Stub.PASSWORD);
         Bundle bundle = new Authenticator().authorize(credentials);
-        Assert.assertNotNull("result shouldn't be null", bundle);
-        Assert.assertFalse("token shouldn't be empty", isTokenEmpty(bundle));
+        assertThat("result shouldn't be null", bundle, notNullValue());
+        assertThat("token shouldn't be empty", isTokenEmpty(bundle), equalTo(false));
     }
 
     @Test
     public void testInvalidCredentials() {
         Credentials credentials = new Credentials(Stub.EMTPY, Stub.EMTPY);
         Bundle bundle = new Authenticator().authorize(credentials);
-        Assert.assertNotNull("result shouldn't be null", bundle);
-        Assert.assertFalse("error shouldn't be empty", isErrorEmpty(bundle));
+        assertThat("result shouldn't be null", bundle, notNullValue());
+        assertThat("error shouldn't be empty", isErrorEmpty(bundle), equalTo(false));
     }
 
     private boolean isTokenEmpty(Bundle bundle) {

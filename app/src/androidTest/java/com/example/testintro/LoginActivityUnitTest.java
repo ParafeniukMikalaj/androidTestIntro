@@ -13,6 +13,16 @@ import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.hasItem;
+
 @Config(emulateSdk = 18)
 @RunWith(RobolectricTestRunner.class)
 public class LoginActivityUnitTest {
@@ -30,10 +40,9 @@ public class LoginActivityUnitTest {
         passwordInput = (EditText) mActivity.findViewById(R.id.test_intro_login_password);
         errorText = (TextView) mActivity.findViewById(R.id.test_intro_login_error);
         loginButton = (Button) mActivity.findViewById(R.id.test_intro_login_button);
-        Assert.assertNotNull("login input shouldn't be null", loginInput);
-        Assert.assertNotNull("password input shouldn't be null", passwordInput);
-        Assert.assertNotNull("error text shouldn't be null", errorText);
-        Assert.assertNotNull("login button shouldn't be null", loginButton);
+        Collection<View> views = new ArrayList<View>();
+        Collections.addAll(views, loginInput, passwordInput, errorText, loginButton);
+        assertThat(views, not(hasItem(nullValue(View.class))));
     }
 
     @Test
@@ -41,8 +50,7 @@ public class LoginActivityUnitTest {
         loginInput.setText(Stub.EMTPY);
         passwordInput.setText(Stub.EMTPY);
         loginButton.performClick();
-        Assert.assertEquals(
-                "error message should became visible with empty credentials",
-                View.VISIBLE, errorText.getVisibility());
+        assertThat("error message should became visible with empty credentials",
+                errorText.getVisibility(), equalTo(View.VISIBLE));
     }
 }
