@@ -12,3 +12,10 @@ android {
         versionName "1.0"
     }
 }
+
+apply plugin: 'robolectric'
+
+dependencies {
+    androidTestCompile 'junit:junit:4.10'
+    androidTestCompile ('org.robolectric:robolectric:2.3')
+}
