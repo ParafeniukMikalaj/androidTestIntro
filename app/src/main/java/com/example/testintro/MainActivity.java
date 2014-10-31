@@ -11,11 +11,35 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private static final int AUTH_REQUEST_CODE = 1;
 
+    private String mToken;
+    private String mError;
+    private boolean mIsTokenSuccess;
+
+    public boolean isTokenSuccess() {
+        return mIsTokenSuccess;
+    }
+
+    public String getToken() {
+        return mToken;
+    }
+
+    public String getError() {
+        return mError;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         initializeViews();
+        // UGLY
+        initializeVars();
+    }
+
+    private void initializeVars() {
+        mToken = null;
+        mError = null;
+        mIsTokenSuccess = false;
     }
 
     private void initializeViews() {
@@ -46,9 +70,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     private void processAuthResult(int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
-            String token = data.getStringExtra(LoginActivity.KEY_AUTH_TOKEN);
-            Toast.makeText(this, "Got token " + token, Toast.LENGTH_LONG).show();
+            mToken = data.getStringExtra(LoginActivity.KEY_AUTH_TOKEN);
+            mIsTokenSuccess = true;
+            Toast.makeText(this, "Got token " + mToken, Toast.LENGTH_LONG).show();
         } else {
+            mIsTokenSuccess = false;
             Toast.makeText(this, "Token not retrieved", Toast.LENGTH_LONG).show();
         }
     }
