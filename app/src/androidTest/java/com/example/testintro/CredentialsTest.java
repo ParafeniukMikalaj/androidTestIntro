@@ -1,10 +1,12 @@
 package com.example.testintro;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
-public class CredentialsTest extends TestCase {
+import org.junit.Test;
 
+public class CredentialsTest {
+
+    @Test
     public void testCredentialsIsValid() {
         Credentials credentials = new Credentials(Stub.NAME, Stub.PASSWORD);
         Assert.assertTrue("not empty credentials should be valid", credentials.isValid());

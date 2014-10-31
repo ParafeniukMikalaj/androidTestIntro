@@ -4,10 +4,17 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
-public class AuthenticatorTest extends TestCase {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
+@Config(emulateSdk = 18)
+@RunWith(RobolectricTestRunner.class)
+public class AuthenticatorTest {
+
+    @Test
     public void testValidCredentials() {
         Credentials credentials = new Credentials(Stub.NAME, Stub.PASSWORD);
         Bundle bundle = new Authenticator().authorize(credentials);
@@ -15,6 +22,7 @@ public class AuthenticatorTest extends TestCase {
         Assert.assertFalse("token shouldn't be empty", isTokenEmpty(bundle));
     }
 
+    @Test
     public void testInvalidCredentials() {
         Credentials credentials = new Credentials(Stub.EMTPY, Stub.EMTPY);
         Bundle bundle = new Authenticator().authorize(credentials);

@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    private static final int AUTH_REQUEST_CODE = 1;
+    public static final int AUTH_REQUEST_CODE = 1;
 
     private String mToken;
     private String mError;
